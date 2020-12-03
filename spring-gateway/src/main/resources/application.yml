@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: Spring_Cloud_Gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.31.35:8848
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: '*'
+            allowedMethods: '*'
+      httpclient:
+        wiretap: true
+      httpserver:
+        wiretap: true
+      routes:
+        - id: after_route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/current/**
+        - id: 1
+          uri: https://blog.ljbmxsm.com
+          predicates:
+            - Path=/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
